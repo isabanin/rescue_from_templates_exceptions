@@ -1,4 +1,4 @@
-h1. Rescue From Templates Exceptions
+h2. Rescue From Templates Exceptions
 
 You probably noticed that very useful little ActionController feature called "rescue_from" doesn't work for any exceptions that were thrown in your views. This is really bad, because you never know when an exception may occur.
 
@@ -6,7 +6,7 @@ The reason is that all views exception are always of the class <var>ActionContro
 
 With that little plugin you can make exceptions that were thrown in the views visible for <var>rescue_from</var> handlers and therefore catch them correctly.
 
-h1. Installation
+h2. Installation
 
 Simply create a new initializer and put next code into it:
 
