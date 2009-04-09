@@ -1,11 +1,21 @@
 Rescue From Templates Exceptions
 =============================
 
+You probably noticed that very useful little ActionController feature called "rescue_from" doesn't work for any exceptions that were thrown in your views. This is really bad, because you never know when an exception may occur.
 
-Example
-=======
+The reason is that all views exception are always of the class ActionController::TemplateError. That obscure TemplateError wrap the real exception class and therefore make it invisible for your "rescue_from" handlers.
 
-Example goes here.
+With that little plugin you can make exceptions that were thrown in the views visible for "rescue_from" handlers and therefore catch them correctly.
 
+Installation
+============
 
-Copyright (c) 2009 [name of plugin creator], released under the MIT license
+Simply create a new initializer and put next code into it:
+
+<pre><code>
+ActionController::Base.rescue_from_templates_exceptions = true
+</code></pre>
+
+That's all.
+
+Copyright (c) 2009 Ilya Sabanin, released under the MIT license
