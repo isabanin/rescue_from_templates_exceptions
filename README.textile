@@ -2,9 +2,9 @@ h3. Rescue From Templates Exceptions
 
 You probably noticed that very useful little ActionController feature called "rescue_from":http://api.rubyonrails.org/classes/ActiveSupport/Rescuable/ClassMethods.html#M000978 doesn't work for any exceptions that were thrown in your views. This is really bad, because you never know when an exception may occur.
 
-The reason is that all views exception are always of the class ActionController::TemplateError. That obscure TemplateError wrap the real exception class and therefore make it invisible for your rescue_from handlers.
+The reason is that all views exceptions are always of the class ActionController::TemplateError. That obscure TemplateError wrap the real exception class and therefore make it invisible for your rescue_from handlers.
 
-With that little plugin you can make exceptions that were thrown in the views visible for rescue_from handlers and therefore catch them correctly.
+With this little plugin you can make exceptions that were thrown in the views visible for rescue_from handlers and therefore catch them correctly.
 
 h3. Example how rescue_from not working
 
@@ -23,15 +23,19 @@ private
 end
 </code></pre>
 
-Now if the SomethingBadHappens is thrown in any of your controllers, it will be successfully passed to the recover_from_something_bad method and everything will be fine. But if the exception will be thrown in any of your views, your pretty recover_from_something_bad method will be completely ignored and the user will see a regular 500.html. That's why you need to use my plugin, to make sure that exception is always handled correctly, no matter where it came from.
+Now if the SomethingBadHappens is thrown in any of your controllers, it will be successfully passed to the recover_from_something_bad method and everything will be fine. But if the exception will be thrown in any of your views, your pretty recover_from_something_bad method will be completely ignored and the user will see a regular 500.html. That's why you need to use my plugin, to make sure that the exception is always handled correctly, no matter where it came from.
 
 h3. Installation
 
-Simply create a new initializer and put next code into it:
+Simply create a new initializer and put this code into it:
 
 <pre><code>ActionController::Base.rescue_from_templates_exceptions = true
 </code></pre>
 
-That's all. Now the example from above would work with exceptions that came from views too. Plug and play :)
+That's all. Now the example from above will work with exceptions that come from views too. Plug and play :)
+
+h3. Should be a part of the Rails Core?
+
+If you think that this functionality should be a part of the Rails itself, please let me know.
 
 Copyright (c) 2009 Ilya Sabanin, released under the MIT license
