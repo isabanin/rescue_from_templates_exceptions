@@ -6,6 +6,24 @@ The reason is that all views exception are always of the class ActionController:
 
 With that little plugin you can make exceptions that were thrown in the views visible for rescue_from handlers and therefore catch them correctly.
 
+h3. Example of how it's not working
+
+Let's say you have a rescue_from handler in your ApplicationController:
+
+<pre><code>ApplicationController < ActionController::Base
+  rescue_from SomethingBadHappens, :with => :recover_from_something_bad
+  
+private
+
+  def recover_from_something_bad(exception)
+    Mailer.deliver_moon_message(exception.message)
+    render :template => "sent_to_the_moon", :layout => 'simple'
+  end
+end
+</code></pre>
+
+Now if the SomethingBadHappens is thrown in any of your controllers, it will be successfully passed to the recover_from_something_bad method and everything will be fine. But if that exception will be thrown in any of your views, your pretty recover_from_something_bad method will be completely ignored and user will see a regular 500.html. That's why you need to use my plugin, to make sure that exception is always handled correctly, no matter where it came from.
+
 h3. Installation
 
 Simply create a new initializer and put next code into it:
@@ -13,6 +31,6 @@ Simply create a new initializer and put next code into it:
 <pre><code>ActionController::Base.rescue_from_templates_exceptions = true
 </code></pre>
 
-That's all. Now you can continue writing regular rescue_from handlers without worrying that they won't work for exceptions that came from your views. Plug and play :)
+That's all. Now the example from above would work with exceptions that came from views too. Plug and play :)
 
 Copyright (c) 2009 Ilya Sabanin, released under the MIT license
