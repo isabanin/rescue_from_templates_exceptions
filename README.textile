@@ -1,19 +1,18 @@
 h2. Rescue From Templates Exceptions
 
-You probably noticed that very useful little ActionController feature called "rescue_from" doesn't work for any exceptions that were thrown in your views. This is really bad, because you never know when an exception may occur.
+You probably noticed that very useful little ActionController feature called "rescue_from":http://api.rubyonrails.org/classes/ActiveSupport/Rescuable/ClassMethods.html#M000978 doesn't work for any exceptions that were thrown in your views. This is really bad, because you never know when an exception may occur.
 
-The reason is that all views exception are always of the class <var>ActionController::TemplateError</var>. That obscure <var>TemplateError</var> wrap the real exception class and therefore make it invisible for your <var>rescue_from</var> handlers.
+The reason is that all views exception are always of the class ActionController::TemplateError. That obscure TemplateError wrap the real exception class and therefore make it invisible for your rescue_from handlers.
 
-With that little plugin you can make exceptions that were thrown in the views visible for <var>rescue_from</var> handlers and therefore catch them correctly.
+With that little plugin you can make exceptions that were thrown in the views visible for rescue_from handlers and therefore catch them correctly.
 
 h2. Installation
 
 Simply create a new initializer and put next code into it:
 
-<pre><code>
-ActionController::Base.rescue_from_templates_exceptions = true
+<pre><code>ActionController::Base.rescue_from_templates_exceptions = true
 </code></pre>
 
-That's all.
+That's all. Now you can continue writing regular rescue_from handlers without worrying that they won't work for exceptions that came from your views. Plug and play :)
 
 Copyright (c) 2009 Ilya Sabanin, released under the MIT license
