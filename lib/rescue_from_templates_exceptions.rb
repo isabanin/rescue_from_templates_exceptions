@@ -12,7 +12,7 @@ module ActionController
       original_exception = template_error.original_exception
       available_handlers = rescue_handlers.collect(&:first)
       
-      if self.class.rescue_from_templates_exceptions && available_handlers.include?(original_exception.to_s)
+      if self.class.rescue_from_templates_exceptions && available_handlers.include?(original_exception.class.to_s)
         # raise original exception instead of obscure TemplateError
         # so that we can recover correctly
         raise original_exception
